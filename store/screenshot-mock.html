@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ToneShift Screenshot Mock</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #000;
+      width: 1280px;
+      height: 800px;
+      overflow: hidden;
+    }
+
+    /* ─── X.com風レイアウト ─── */
+    .x-layout {
+      display: flex;
+      height: 100%;
+      background: #000;
+      color: #e7e9ea;
+    }
+
+    /* サイドバー */
+    .x-sidebar {
+      width: 275px;
+      padding: 8px 12px;
+      border-right: 1px solid #2f3336;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .x-logo {
+      font-size: 28px;
+      padding: 12px;
+      width: fit-content;
+      margin-bottom: 4px;
+    }
+
+    .x-nav-item {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 12px;
+      border-radius: 9999px;
+      cursor: pointer;
+      font-size: 20px;
+      transition: background 0.1s;
+    }
+    .x-nav-item:hover { background: #181818; }
+    .x-nav-item span { font-size: 16px; }
+    .x-nav-item.active span { font-weight: 700; }
+
+    .x-tweet-btn {
+      margin-top: 16px;
+      background: #1d9bf0;
+      color: white;
+      border: none;
+      border-radius: 9999px;
+      padding: 16px;
+      font-size: 17px;
+      font-weight: 700;
+      cursor: pointer;
+      width: 90%;
+    }
+
+    /* メインフィード */
+    .x-main {
+      flex: 1;
+      border-right: 1px solid #2f3336;
+      overflow: hidden;
+    }
+
+    .x-header {
+      padding: 12px 16px;
+      border-bottom: 1px solid #2f3336;
+      font-size: 20px;
+      font-weight: 700;
+      backdrop-filter: blur(12px);
+      background: rgba(0,0,0,0.7);
+    }
+
+    /* ツイート入力エリア */
+    .x-compose {
+      padding: 12px 16px;
+      border-bottom: 1px solid #2f3336;
+      display: flex;
+      gap: 12px;
+    }
+
+    .x-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #6C47FF, #9B6BFF);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .x-compose-content {
+      flex: 1;
+      position: relative;
+    }
+
+    .x-compose-input {
+      width: 100%;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #e7e9ea;
+      font-size: 20px;
+      line-height: 1.5;
+      resize: none;
+      min-height: 80px;
+      font-family: inherit;
+    }
+
+    .x-compose-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid #2f3336;
+    }
+
+    .x-compose-icons {
+      display: flex;
+      gap: 4px;
+      color: #1d9bf0;
+    }
+
+    .x-compose-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .x-compose-icon:hover { background: rgba(29,155,240,0.1); }
+
+    .x-post-btn {
+      background: #1d9bf0;
+      color: white;
+      border: none;
+      border-radius: 9999px;
+      padding: 8px 16px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    /* フィードツイート */
+    .x-tweet {
+      padding: 12px 16px;
+      border-bottom: 1px solid #2f3336;
+      display: flex;
+      gap: 12px;
+    }
+
+    .x-tweet-body { flex: 1; }
+    .x-tweet-header {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+      margin-bottom: 4px;
+    }
+    .x-tweet-name { font-weight: 700; font-size: 15px; }
+    .x-tweet-handle { color: #71767b; font-size: 15px; }
+    .x-tweet-text { font-size: 15px; line-height: 1.5; }
+    .x-tweet-actions {
+      display: flex;
+      gap: 32px;
+      margin-top: 12px;
+      color: #71767b;
+      font-size: 13px;
+    }
+
+    /* ─── ToneShift UI ─── */
+    .ts-trigger {
+      position: absolute;
+      bottom: -10px;
+      right: -10px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #6C47FF, #9B6BFF);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 12px rgba(108,71,255,0.5);
+      font-size: 16px;
+      color: white;
+      z-index: 100;
+    }
+
+    .ts-panel {
+      position: absolute;
+      right: -10px;
+      top: calc(100% + 10px);
+      width: 320px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3), 0 2px 8px rgba(0,0,0,0.15);
+      z-index: 200;
+      overflow: hidden;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    .ts-panel-header {
+      background: linear-gradient(135deg, #6C47FF, #9B6BFF);
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+    }
+
+    .ts-panel-title {
+      font-weight: 600;
+      font-size: 13px;
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .ts-panel-body { padding: 14px 16px; }
+
+    .ts-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #666;
+      margin-bottom: 6px;
+    }
+
+    .ts-select {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1.5px solid #6C47FF;
+      border-radius: 8px;
+      font-size: 13px;
+      color: #1A1A2E;
+      background: white;
+      margin-bottom: 12px;
+      font-family: inherit;
+    }
+
+    .ts-btn {
+      width: 100%;
+      padding: 9px 14px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 8px;
+      font-family: inherit;
+    }
+
+    .ts-btn-primary { background: #6C47FF; color: white; }
+    .ts-btn-secondary { background: #f0edff; color: #6C47FF; }
+
+    .ts-result-card {
+      background: #f8f7ff;
+      border: 1.5px solid #e8e4ff;
+      border-radius: 8px;
+      padding: 10px 12px;
+      margin-top: 10px;
+    }
+
+    .ts-result-text {
+      font-size: 13px;
+      color: #1A1A2E;
+      line-height: 1.5;
+      margin-bottom: 8px;
+    }
+
+    .ts-use-btn {
+      width: 100%;
+      padding: 6px 10px;
+      background: #6C47FF;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .ts-usage-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 8px;
+      font-size: 11px;
+      color: #888;
+    }
+
+    .ts-usage-track {
+      flex: 1;
+      height: 4px;
+      background: #eee;
+      border-radius: 2px;
+    }
+
+    .ts-usage-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #6C47FF, #9B6BFF);
+      border-radius: 2px;
+      width: 30%;
+    }
+
+    /* ライトボックス（サイド）*/
+    .x-aside {
+      width: 350px;
+      padding: 12px 16px;
+    }
+
+    .x-search {
+      background: #202327;
+      border-radius: 9999px;
+      padding: 10px 16px;
+      color: #71767b;
+      font-size: 15px;
+      margin-bottom: 16px;
+    }
+
+    .x-trending {
+      background: #16181c;
+      border-radius: 16px;
+      padding: 16px;
+    }
+
+    .x-trending-title {
+      font-size: 20px;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+
+    .x-trend-item {
+      padding: 12px 0;
+      border-bottom: 1px solid #2f3336;
+    }
+
+    .x-trend-item:last-child { border-bottom: none; }
+    .x-trend-cat { font-size: 12px; color: #71767b; }
+    .x-trend-name { font-weight: 700; font-size: 15px; }
+    .x-trend-count { font-size: 13px; color: #71767b; }
+
+    /* ─── Scenes ─── */
+    #scene-1 .ts-panel { display: none; }
+    #scene-2 .ts-panel { display: block; }
+  </style>
+</head>
+<body>
+
+<!-- Scene 2: パネル展開（デフォルト表示） -->
+<div id="scene-2">
+  <div class="x-layout">
+    <!-- サイドバー -->
+    <div class="x-sidebar">
+      <div class="x-logo">𝕏</div>
+      <div class="x-nav-item active">🏠 <span>Home</span></div>
+      <div class="x-nav-item">🔍 <span>Explore</span></div>
+      <div class="x-nav-item">🔔 <span>Notifications</span></div>
+      <div class="x-nav-item">✉️ <span>Messages</span></div>
+      <div class="x-nav-item">🔖 <span>Bookmarks</span></div>
+      <div class="x-nav-item">👤 <span>Profile</span></div>
+      <button class="x-tweet-btn">Post</button>
+    </div>
+
+    <!-- メイン -->
+    <div class="x-main">
+      <div class="x-header">Home</div>
+
+      <!-- ツイート入力 -->
+      <div class="x-compose">
+        <div class="x-avatar">M</div>
+        <div class="x-compose-content" style="position:relative">
+          <div class="x-compose-input" style="color:#e7e9ea">
+            先日のミーティングで議論した内容について、チームに共有したいと思います。新しい機能のリリース日程と優先事項を整理しました。
+          </div>
+          <div class="x-compose-toolbar">
+            <div class="x-compose-icons">
+              <div class="x-compose-icon">🖼️</div>
+              <div class="x-compose-icon">📊</div>
+              <div class="x-compose-icon">😊</div>
+              <div class="x-compose-icon">📍</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px">
+              <span style="color:#1d9bf0;font-size:13px">280</span>
+              <button class="x-post-btn">Post</button>
+            </div>
+          </div>
+
+          <!-- ToneShift トリガーボタン -->
+          <button class="ts-trigger">✨</button>
+
+          <!-- ToneShift パネル -->
+          <div class="ts-panel">
+            <div class="ts-panel-header">
+              <div class="ts-panel-title">✨ ToneShift</div>
+              <span style="opacity:0.8;cursor:pointer">✕</span>
+            </div>
+            <div class="ts-panel-body">
+              <div class="ts-label">Tone</div>
+              <select class="ts-select">
+                <option>Professional</option>
+                <option>Casual</option>
+                <option>Friendly</option>
+                <option>Assertive</option>
+                <option>Concise</option>
+              </select>
+
+              <button class="ts-btn ts-btn-primary">✏️ Rewrite in this tone</button>
+              <button class="ts-btn ts-btn-secondary">💬 Generate 3 replies</button>
+
+              <!-- 結果カード -->
+              <div class="ts-result-card">
+                <div class="ts-result-text">
+                  I'd like to share with the team the discussion points from our recent meeting. I've organized the release timeline and priorities for the new features.
+                </div>
+                <button class="ts-use-btn">Use this ↗</button>
+              </div>
+
+              <div class="ts-usage-bar">
+                <span>3/10 today</span>
+                <div class="ts-usage-track">
+                  <div class="ts-usage-fill"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- フィードツイート -->
+      <div class="x-tweet">
+        <div class="x-avatar" style="background:linear-gradient(135deg,#1d9bf0,#4aa8ff)">A</div>
+        <div class="x-tweet-body">
+          <div class="x-tweet-header">
+            <span class="x-tweet-name">Alex Chen</span>
+            <span class="x-tweet-handle">@alexchen · 2h</span>
+          </div>
+          <div class="x-tweet-text">Just shipped a major update to our product. The team worked incredibly hard this sprint. 🚀</div>
+          <div class="x-tweet-actions">
+            <span>💬 24</span><span>🔁 18</span><span>❤️ 142</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="x-tweet">
+        <div class="x-avatar" style="background:linear-gradient(135deg,#ff6b6b,#ff8e53)">S</div>
+        <div class="x-tweet-body">
+          <div class="x-tweet-header">
+            <span class="x-tweet-name">Sarah K.</span>
+            <span class="x-tweet-handle">@sarahk · 4h</span>
+          </div>
+          <div class="x-tweet-text">AI writing tools have completely changed how I draft emails. Saves me 30 minutes every day.</div>
+          <div class="x-tweet-actions">
+            <span>💬 8</span><span>🔁 31</span><span>❤️ 287</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- サイドバー右 -->
+    <div class="x-aside">
+      <div class="x-search">🔍 Search</div>
+      <div class="x-trending">
+        <div class="x-trending-title">What's happening</div>
+        <div class="x-trend-item">
+          <div class="x-trend-cat">Technology · Trending</div>
+          <div class="x-trend-name">#AIWriting</div>
+          <div class="x-trend-count">12.4K posts</div>
+        </div>
+        <div class="x-trend-item">
+          <div class="x-trend-cat">Trending</div>
+          <div class="x-trend-name">#Productivity</div>
+          <div class="x-trend-count">8.1K posts</div>
+        </div>
+        <div class="x-trend-item">
+          <div class="x-trend-cat">Technology</div>
+          <div class="x-trend-name">Chrome Extensions</div>
+          <div class="x-trend-count">5.3K posts</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

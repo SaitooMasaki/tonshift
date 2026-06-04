@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ToneShift — Privacy Policy</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 48px 24px;
+      color: #1a1a2e;
+      line-height: 1.7;
+    }
+    h1 { font-size: 28px; margin-bottom: 4px; }
+    .subtitle { color: #666; margin-bottom: 40px; font-size: 14px; }
+    h2 { font-size: 18px; margin-top: 36px; margin-bottom: 8px; color: #333; }
+    p, li { font-size: 15px; color: #444; }
+    ul { padding-left: 20px; }
+    li { margin-bottom: 6px; }
+    a { color: #6C47FF; }
+    .highlight {
+      background: #f0edff;
+      border-left: 3px solid #6C47FF;
+      padding: 12px 16px;
+      border-radius: 0 8px 8px 0;
+      margin: 16px 0;
+      font-size: 14px;
+      color: #333;
+    }
+    footer { margin-top: 60px; font-size: 13px; color: #999; border-top: 1px solid #eee; padding-top: 20px; }
+  </style>
+</head>
+<body>
+  <h1>✨ ToneShift — Privacy Policy</h1>
+  <p class="subtitle">Last updated: June 2026</p>
+
+  <div class="highlight">
+    <strong>Summary:</strong> ToneShift stores your API key locally on your device only. We do not collect, transmit, or store any personal data on our servers.
+  </div>
+
+  <h2>1. Overview</h2>
+  <p>
+    ToneShift ("the Extension") is a Chrome browser extension that helps you rewrite and generate text using AI.
+    This Privacy Policy explains what data we handle and how.
+  </p>
+
+  <h2>2. Data We Collect</h2>
+  <p>ToneShift does <strong>not</strong> collect any personal data. Specifically:</p>
+  <ul>
+    <li>We do not collect your name, email address, or any account information.</li>
+    <li>We do not track your browsing history or the websites you visit.</li>
+    <li>We do not store the text you write or have rewritten.</li>
+    <li>We do not use analytics or tracking services.</li>
+  </ul>
+
+  <h2>3. Data Stored Locally</h2>
+  <p>The following data is stored <strong>only on your local device</strong> using <code>chrome.storage.local</code>:</p>
+  <ul>
+    <li><strong>Anthropic API Key</strong> — Your API key, entered in the Settings page. It never leaves your device except to make direct API calls to Anthropic.</li>
+    <li><strong>Extension preferences</strong> — Default tone, enabled/disabled sites, custom tones.</li>
+    <li><strong>Usage counter</strong> — A daily rewrite count used to enforce the free tier limit. Stored locally and resets daily.</li>
+    <li><strong>Pro status</strong> — Whether your account has an active Pro subscription (checked via ExtensionPay).</li>
+  </ul>
+
+  <h2>4. Third-Party Services</h2>
+
+  <h3>Anthropic API</h3>
+  <p>
+    When you use ToneShift to rewrite or generate text, your input text is sent directly from your browser to
+    <a href="https://www.anthropic.com" target="_blank" rel="noopener">Anthropic's API</a> using your own API key.
+    Please refer to <a href="https://www.anthropic.com/privacy" target="_blank" rel="noopener">Anthropic's Privacy Policy</a>
+    for information on how they handle API requests.
+  </p>
+
+  <h3>ExtensionPay</h3>
+  <p>
+    Pro subscription management is handled by <a href="https://extensionpay.com" target="_blank" rel="noopener">ExtensionPay</a>.
+    When you subscribe, payment processing and subscription status are managed by ExtensionPay.
+    Please refer to <a href="https://extensionpay.com/privacy" target="_blank" rel="noopener">ExtensionPay's Privacy Policy</a>
+    for details.
+  </p>
+
+  <h2>5. Permissions Used</h2>
+  <p>ToneShift requests the following browser permissions:</p>
+  <ul>
+    <li><strong>activeTab</strong> — To interact with the current tab's content (show the floating button).</li>
+    <li><strong>storage</strong> — To save your settings and API key locally.</li>
+    <li><strong>scripting</strong> — To inject the writing assistant UI into supported pages.</li>
+    <li><strong>Host permissions for Gmail, LinkedIn, Twitter/X</strong> — To activate the extension only on these specific sites.</li>
+    <li><strong>api.anthropic.com</strong> — To send API requests directly from your browser to Anthropic.</li>
+  </ul>
+
+  <h2>6. Data Security</h2>
+  <p>
+    Your Anthropic API key is stored in Chrome's local storage, which is sandboxed to this extension and
+    not accessible by websites or other extensions. We recommend keeping your API key confidential and
+    regenerating it if you believe it has been compromised.
+  </p>
+
+  <h2>7. Children's Privacy</h2>
+  <p>
+    ToneShift is not directed at children under 13. We do not knowingly collect data from children.
+  </p>
+
+  <h2>8. Changes to This Policy</h2>
+  <p>
+    We may update this Privacy Policy from time to time. Changes will be reflected by the "Last updated" date above.
+    Continued use of the extension after changes constitutes acceptance of the updated policy.
+  </p>
+
+  <h2>9. Contact</h2>
+  <p>
+    If you have questions about this Privacy Policy, please contact us at:
+    <a href="mailto:m.masaki.sm@gmail.com">m.masaki.sm@gmail.com</a>
+  </p>
+
+  <footer>
+    © 2026 ToneShift. All rights reserved.
+  </footer>
+</body>
+</html>

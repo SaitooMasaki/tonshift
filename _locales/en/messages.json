@@ -1,0 +1,146 @@
+{
+  "appName": {
+    "message": "ToneShift — AI Writing Assistant",
+    "description": "The name of the extension"
+  },
+  "appDescription": {
+    "message": "Rewrite and generate AI-powered replies in any tone — directly in Gmail, LinkedIn, and Twitter/X.",
+    "description": "The description of the extension"
+  },
+  "triggerTitle": {
+    "message": "Open ToneShift",
+    "description": "Tooltip for the floating trigger button"
+  },
+  "panelTitle": {
+    "message": "ToneShift",
+    "description": "Title shown in the floating panel header"
+  },
+  "toneLabel": {
+    "message": "Tone",
+    "description": "Label for the tone selector"
+  },
+  "rewriteBtn": {
+    "message": "Rewrite in this tone",
+    "description": "Button to rewrite text"
+  },
+  "repliesBtn": {
+    "message": "Generate 3 replies",
+    "description": "Button to generate replies"
+  },
+  "useThisBtn": {
+    "message": "Use this",
+    "description": "Button to apply a result"
+  },
+  "upgradeLabel": {
+    "message": "Upgrade to Pro",
+    "description": "Label for upgrade prompt"
+  },
+  "proOnly": {
+    "message": "Pro only",
+    "description": "Label for pro-only features"
+  },
+  "loadingRewrite": {
+    "message": "Rewriting...",
+    "description": "Loading message for rewrite action"
+  },
+  "loadingReplies": {
+    "message": "Generating replies...",
+    "description": "Loading message for replies action"
+  },
+  "errorApiKey": {
+    "message": "Invalid API key. Please check your settings.",
+    "description": "Error when API key is invalid"
+  },
+  "errorRateLimit": {
+    "message": "Too many requests, please wait a moment.",
+    "description": "Error when rate limited"
+  },
+  "errorNetwork": {
+    "message": "Network error. Please check your connection.",
+    "description": "Error for network issues"
+  },
+  "errorNoText": {
+    "message": "Please enter some text first.",
+    "description": "Error when input is empty"
+  },
+  "errorDailyLimit": {
+    "message": "Daily limit reached. Upgrade to Pro for unlimited use.",
+    "description": "Error when daily limit is hit"
+  },
+  "apiKeyNotSet": {
+    "message": "API key not set. Open Settings to add your key.",
+    "description": "Banner when API key is missing"
+  },
+  "openSettings": {
+    "message": "Open Settings",
+    "description": "Link to open options page"
+  },
+  "retryBtn": {
+    "message": "Retry",
+    "description": "Button to retry a failed action"
+  },
+  "settingsTitle": {
+    "message": "ToneShift Settings",
+    "description": "Options page title"
+  },
+  "settingsApiKeySection": {
+    "message": "Anthropic API Key",
+    "description": "Section title for API key"
+  },
+  "settingsApiKeyDesc": {
+    "message": "Your key is stored locally and never sent to our servers.",
+    "description": "Description for API key section"
+  },
+  "settingsSaveKey": {
+    "message": "Save API Key",
+    "description": "Button to save API key"
+  },
+  "settingsRemoveKey": {
+    "message": "Remove",
+    "description": "Button to remove API key"
+  },
+  "settingsDefaultTone": {
+    "message": "Default Tone",
+    "description": "Section title for default tone"
+  },
+  "settingsActiveSites": {
+    "message": "Active Sites",
+    "description": "Section title for site toggles"
+  },
+  "settingsCustomTones": {
+    "message": "Custom Tones",
+    "description": "Section title for custom tones"
+  },
+  "settingsUsageStats": {
+    "message": "Usage Statistics",
+    "description": "Section title for usage stats"
+  },
+  "popupUpgrade": {
+    "message": "Upgrade to Pro — $7/month",
+    "description": "Upgrade button text in popup"
+  },
+  "popupSettings": {
+    "message": "Settings",
+    "description": "Settings button in popup"
+  },
+  "toneProfessional": {
+    "message": "Professional",
+    "description": "Professional tone option"
+  },
+  "toneCasual": {
+    "message": "Casual",
+    "description": "Casual tone option"
+  },
+  "toneFriendly": {
+    "message": "Friendly",
+    "description": "Friendly tone option"
+  },
+  "toneAssertive": {
+    "message": "Assertive",
+    "description": "Assertive tone option"
+  },
+  "toneConcise": {
+    "message": "Concise",
+    "description": "Concise tone option"
+  }
+}

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ToneShift — Settings</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <div class="page">
+    <header class="page-header">
+      <div class="header-inner">
+        <div class="logo">
+          <span class="logo-icon">✨</span>
+          <div>
+            <div class="logo-title">ToneShift</div>
+            <div class="logo-sub">AI Writing Assistant</div>
+          </div>
+        </div>
+        <div id="pro-badge" class="pro-badge" style="display:none">✨ Pro</div>
+      </div>
+    </header>
+
+    <main class="main">
+
+      <!-- API Key -->
+      <section class="card">
+        <h2 class="card-title">Anthropic API Key</h2>
+        <p class="card-desc">ToneShift uses your own Anthropic API key. Your key is stored locally and never sent to our servers.</p>
+        <div class="field-row">
+          <input
+            type="password"
+            id="api-key-input"
+            class="input"
+            placeholder="sk-ant-..."
+            autocomplete="off"
+            spellcheck="false"
+          >
+          <button id="toggle-key-visibility" class="btn-icon" title="Show/hide key">👁</button>
+        </div>
+        <div id="api-key-masked" class="masked-key" style="display:none"></div>
+        <div class="field-actions">
+          <button id="save-api-key" class="btn-primary">Save API Key</button>
+          <button id="clear-api-key" class="btn-danger" style="display:none">Remove</button>
+        </div>
+        <div id="api-key-feedback" class="feedback" style="display:none"></div>
+        <a href="https://console.anthropic.com/account/keys" target="_blank" rel="noopener" class="external-link">
+          Get your API key at console.anthropic.com →
+        </a>
+      </section>
+
+      <!-- Default Tone -->
+      <section class="card">
+        <h2 class="card-title">Default Tone</h2>
+        <p class="card-desc">The tone selected by default when the panel opens.</p>
+        <select id="default-tone" class="select">
+          <option value="Professional">Professional</option>
+          <option value="Casual">Casual</option>
+          <option value="Friendly">Friendly</option>
+          <option value="Assertive">Assertive</option>
+          <option value="Concise">Concise</option>
+        </select>
+        <button id="save-default-tone" class="btn-primary" style="margin-top:10px">Save</button>
+        <div id="tone-feedback" class="feedback" style="display:none"></div>
+      </section>
+
+      <!-- Site Toggles -->
+      <section class="card">
+        <h2 class="card-title">Active Sites</h2>
+        <p class="card-desc">Enable or disable ToneShift for specific sites.</p>
+        <div class="toggle-list">
+          <label class="toggle-row">
+            <div class="toggle-info">
+              <span class="toggle-icon">📧</span>
+              <div>
+                <div class="toggle-name">Gmail</div>
+                <div class="toggle-url">mail.google.com</div>
+              </div>
+            </div>
+            <div class="toggle-switch">
+              <input type="checkbox" class="site-checkbox" data-site="mail.google.com">
+              <span class="switch-slider"></span>
+            </div>
+          </label>
+          <label class="toggle-row">
+            <div class="toggle-info">
+              <span class="toggle-icon">💼</span>
+              <div>
+                <div class="toggle-name">LinkedIn</div>
+                <div class="toggle-url">www.linkedin.com</div>
+              </div>
+            </div>
+            <div class="toggle-switch">
+              <input type="checkbox" class="site-checkbox" data-site="www.linkedin.com">
+              <span class="switch-slider"></span>
+            </div>
+          </label>
+          <label class="toggle-row">
+            <div class="toggle-info">
+              <span class="toggle-icon">🐦</span>
+              <div>
+                <div class="toggle-name">Twitter / X</div>
+                <div class="toggle-url">twitter.com · x.com</div>
+              </div>
+            </div>
+            <div class="toggle-switch">
+              <input type="checkbox" class="site-checkbox" data-site="twitter.com">
+              <span class="switch-slider"></span>
+            </div>
+          </label>
+        </div>
+      </section>
+
+      <!-- Custom Tones (Pro) -->
+      <section class="card" id="custom-tones-card">
+        <h2 class="card-title">
+          Custom Tones
+          <span class="pro-only-badge">Pro</span>
+        </h2>
+        <p class="card-desc">Add up to 5 custom tones with your own description.</p>
+
+        <div id="custom-tones-list" class="custom-tones-list"></div>
+
+        <div id="custom-tones-add" style="display:none">
+          <div class="add-tone-form">
+            <input type="text" id="custom-tone-name" class="input" placeholder="Tone name (e.g. Empathetic)" maxlength="30">
+            <textarea id="custom-tone-desc" class="textarea" placeholder="Describe the tone (e.g. Warm and understanding, acknowledging the reader's feelings)" rows="2" maxlength="200"></textarea>
+            <button id="add-tone-btn" class="btn-primary">Add Tone</button>
+          </div>
+        </div>
+
+        <div id="custom-tones-locked" class="locked-overlay">
+          <div class="locked-content">
+            <div class="locked-icon">🔒</div>
+            <div class="locked-text">Custom tones are a Pro feature</div>
+            <button id="upgrade-from-tones" class="btn-upgrade">✨ Upgrade to Pro</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Usage Stats -->
+      <section class="card">
+        <h2 class="card-title">Usage Statistics</h2>
+        <div class="stats-grid">
+          <div class="stat-item">
+            <div id="stat-today" class="stat-value">0</div>
+            <div class="stat-label">Today's rewrites</div>
+          </div>
+          <div class="stat-item">
+            <div id="stat-limit" class="stat-value">10</div>
+            <div class="stat-label">Daily limit</div>
+          </div>
+        </div>
+        <button id="reset-usage" class="btn-danger-outline">Reset usage counter</button>
+        <div id="reset-feedback" class="feedback" style="display:none"></div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="../utils/storage.js"></script>
+  <script src="options.js"></script>
+</body>
+</html>

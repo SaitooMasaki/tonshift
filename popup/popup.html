@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ToneShift</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="header">
+    <div class="logo">
+      <span class="logo-icon">✨</span>
+      <span class="logo-text">ToneShift</span>
+    </div>
+    <label class="toggle-switch" title="Enable/Disable extension">
+      <input type="checkbox" id="extension-toggle">
+      <span class="slider"></span>
+    </label>
+  </div>
+
+  <div class="content">
+    <div id="api-key-status" class="status-row">
+      <span class="status-label">API Key</span>
+      <span id="api-key-badge" class="badge badge-error">Not set</span>
+    </div>
+
+    <div id="pro-status-row" class="status-row">
+      <span class="status-label">Plan</span>
+      <span id="plan-badge" class="badge badge-free">Free</span>
+    </div>
+
+    <div id="usage-section" class="usage-section">
+      <div class="usage-header">
+        <span>Today's usage</span>
+        <span id="usage-count" class="usage-count">0 / 10</span>
+      </div>
+      <div class="usage-track">
+        <div id="usage-fill" class="usage-fill"></div>
+      </div>
+    </div>
+
+    <div id="upgrade-section" class="upgrade-section" style="display:none">
+      <button id="upgrade-btn" class="btn-upgrade">
+        ✨ Upgrade to Pro — $7/month
+      </button>
+      <p class="upgrade-note">Unlimited rewrites · Reply generation · Custom tones</p>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="sites-section">
+      <div class="section-title">Active on</div>
+      <div class="sites-list">
+        <label class="site-row">
+          <span class="site-name">📧 Gmail</span>
+          <input type="checkbox" class="site-toggle" data-site="mail.google.com">
+          <span class="site-slider"></span>
+        </label>
+        <label class="site-row">
+          <span class="site-name">💼 LinkedIn</span>
+          <input type="checkbox" class="site-toggle" data-site="www.linkedin.com">
+          <span class="site-slider"></span>
+        </label>
+        <label class="site-row">
+          <span class="site-name">🐦 Twitter / X</span>
+          <input type="checkbox" class="site-toggle" data-site="twitter.com">
+          <span class="site-slider"></span>
+        </label>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <button id="settings-btn" class="btn-settings">⚙️ Settings</button>
+  </div>
+
+  <script src="../utils/storage.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

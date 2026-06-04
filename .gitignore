@@ -1,0 +1,4 @@
+node_modules/
+*.zip
+store/screenshots/
+ExtPay.js

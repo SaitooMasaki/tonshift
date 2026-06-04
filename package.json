@@ -1,0 +1,17 @@
+{
+  "name": "tonshift",
+  "version": "1.0.0",
+  "description": "",
+  "main": "background.js",
+  "scripts": {
+    "test": "node tests/e2e.js",
+    "build": "node scripts/build-zip.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "puppeteer": "^25.1.0"
+  }
+}
