@@ -21,6 +21,15 @@ const ToneShiftStorage = (() => {
     await set({ apiKey: key });
   }
 
+  async function getLicenseKey() {
+    const result = await get(['licenseKey']);
+    return result.licenseKey || '';
+  }
+
+  async function saveLicenseKey(key) {
+    await set({ licenseKey: key });
+  }
+
   async function getIsPro() {
     const result = await get(['isPro']);
     return result.isPro || false;
@@ -76,6 +85,8 @@ const ToneShiftStorage = (() => {
     set,
     getApiKey,
     saveApiKey,
+    getLicenseKey,
+    saveLicenseKey,
     getIsPro,
     getDefaultTone,
     getExtensionEnabled,

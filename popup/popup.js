@@ -65,7 +65,10 @@ async function init() {
   const upgradeBtn = document.getElementById('upgrade-btn');
   if (upgradeBtn) {
     upgradeBtn.addEventListener('click', () => {
-      chrome.runtime.sendMessage({ type: 'OPEN_PAYMENT' });
+      // Lemon Squeezy 商品登録後に TONSHIFT_VARIANT_ID を実際のVariant IDに置き換える
+      chrome.tabs.create({
+        url: 'https://saitoomasaki.lemonsqueezy.com/checkout/buy/TONSHIFT_VARIANT_ID'
+      });
     });
   }
 

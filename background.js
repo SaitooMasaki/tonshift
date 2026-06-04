@@ -1,27 +1,20 @@
-// ExtPay.js が存在しない場合でも Service Worker が死なないようにする
-let extpay = null;
-try {
-  importScripts('ExtPay.js');
-  extpay = ExtPay('tonshift');
-  extpay.startBackground();
-} catch (e) {
-  console.warn('[ToneShift] ExtPay failed to load:', e.message);
-}
+// ToneShift Service Worker
+// 課金: Lemon Squeezy License Key 方式（ExtensionPayは不使用）
 
-// Pro状態をstorageに同期
+// Pro状態をstorageに同期（ライセンスキーを再検証）
 function syncProStatus() {
-  if (!extpay) return;
-  extpay.getUser().then(user => {
-    chrome.storage.local.set({ isPro: user.paid });
-  }).catch(() => {
-    // ネットワークエラー時は既存のキャッシュを使用
+  chrome.storage.local.get(['licenseKey'], (result) => {
+    if (!result.licenseKey) {
+      chrome.storage.local.set({ isPro: false });
+      return;
+    }
+    // バックグラウンドでは検証せずキャッシュを信頼する
+    // 実際の検証はoptions pageで行う
   });
 }
 
-// インストール時・起動時に同期
+// インストール時・起動時に初期化
 chrome.runtime.onInstalled.addListener(() => {
-  syncProStatus();
-  // デフォルト設定を初期化
   chrome.storage.local.get(['siteEnabled', 'defaultTone', 'extensionEnabled'], (result) => {
     const defaults = {};
     if (!result.siteEnabled) {
@@ -54,26 +47,17 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
     'x.com'
   ];
 
-  let isSupported = false;
+  let hostname = '';
   try {
     const url = new URL(tab.url);
-    isSupported = supportedHosts.some(host => url.hostname === host);
+    if (!supportedHosts.includes(url.hostname)) return;
+    hostname = url.hostname;
   } catch {
     return;
   }
 
-  if (!isSupported) return;
-
   chrome.storage.local.get(['extensionEnabled', 'siteEnabled'], (result) => {
     if (!result.extensionEnabled) return;
-
-    let hostname = '';
-    try {
-      hostname = new URL(tab.url).hostname;
-    } catch {
-      return;
-    }
-
     const siteEnabled = result.siteEnabled || {};
     if (siteEnabled[hostname] === false) return;
 
@@ -82,6 +66,7 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
       files: [
         'utils/storage.js',
         'utils/sites.js',
+        'api/lemon-squeezy.js',
         'api/claude.js',
         'content/context.js',
         'content/ui.js',
@@ -96,32 +81,18 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
 // メッセージハンドラ
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.type === 'OPEN_PAYMENT') {
-    if (extpay) extpay.openPaymentPage();
-    sendResponse({ success: true });
-  }
-  if (message.type === 'GET_PRO_STATUS') {
-    if (!extpay) {
-      chrome.storage.local.get(['isPro'], (result) => {
-        sendResponse({ isPro: result.isPro || false });
-      });
-      return true;
-    }
-    extpay.getUser().then(user => {
-      chrome.storage.local.set({ isPro: user.paid });
-      sendResponse({ isPro: user.paid });
-    }).catch(() => {
-      chrome.storage.local.get(['isPro'], (result) => {
-        sendResponse({ isPro: result.isPro || false });
-      });
+    // Lemon Squeezy のチェックアウトページを開く
+    chrome.tabs.create({
+      url: 'https://saitoomasaki.lemonsqueezy.com/checkout/buy/TONSHIFT_VARIANT_ID'
     });
-    return true; // 非同期レスポンスのためtrueを返す
-  }
-  if (message.type === 'SYNC_PRO') {
-    syncProStatus();
     sendResponse({ success: true });
   }
   if (message.type === 'OPEN_OPTIONS') {
     chrome.runtime.openOptionsPage();
+    sendResponse({ success: true });
+  }
+  if (message.type === 'SYNC_PRO') {
+    syncProStatus();
     sendResponse({ success: true });
   }
 });

@@ -49,6 +49,38 @@
         </a>
       </section>
 
+      <!-- Pro License Key -->
+      <section class="card">
+        <h2 class="card-title">ToneShift Pro</h2>
+        <p class="card-desc">Enter your license key to unlock unlimited rewrites, reply generation, and custom tones.</p>
+        <div id="pro-active-banner" class="pro-banner" style="display:none">
+          ✨ Pro is active — <span id="pro-email"></span>
+        </div>
+        <div id="license-key-form">
+          <div class="field-row">
+            <input
+              type="text"
+              id="license-key-input"
+              class="input"
+              placeholder="XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
+              autocomplete="off"
+              spellcheck="false"
+            >
+          </div>
+          <div class="field-actions">
+            <button id="activate-license" class="btn-primary">Activate</button>
+            <button id="deactivate-license" class="btn-danger" style="display:none">Deactivate</button>
+          </div>
+          <div id="license-feedback" class="feedback" style="display:none"></div>
+        </div>
+        <div style="margin-top:12px">
+          <a href="https://saitoomasaki.lemonsqueezy.com/checkout/buy/TONSHIFT_VARIANT_ID"
+             target="_blank" rel="noopener" class="btn-upgrade" style="display:inline-block;text-decoration:none;text-align:center;padding:10px 20px">
+            ✨ Get ToneShift Pro — $7/month
+          </a>
+        </div>
+      </section>
+
       <!-- Default Tone -->
       <section class="card">
         <h2 class="card-title">Default Tone</h2>
@@ -159,6 +191,7 @@
   </div>
 
   <script src="../utils/storage.js"></script>
+  <script src="../api/lemon-squeezy.js"></script>
   <script src="options.js"></script>
 </body>
 </html>

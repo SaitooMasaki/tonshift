@@ -1,9 +1,10 @@
 const MAX_CUSTOM_TONES = 5;
 
 async function init() {
-  const [apiKey, isPro, defaultTone, usageCount, siteEnabled, customTones] = await Promise.all([
+  const [apiKey, isPro, licenseKey, defaultTone, usageCount, siteEnabled, customTones] = await Promise.all([
     ToneShiftStorage.getApiKey(),
     ToneShiftStorage.getIsPro(),
+    ToneShiftStorage.getLicenseKey(),
     ToneShiftStorage.getDefaultTone(),
     ToneShiftStorage.getUsageToday(),
     ToneShiftStorage.get(['siteEnabled']),
@@ -23,10 +24,80 @@ async function init() {
   }
 
   setupApiKey(apiKey);
+  setupLicenseKey(licenseKey, isPro);
   setupDefaultTone(defaultTone);
   setupSiteToggles(sites);
   setupCustomTones(isPro, customTones);
   setupUsageStats(usageCount, isPro);
+}
+
+// ライセンスキーセクション
+function setupLicenseKey(currentKey, isPro) {
+  const input = document.getElementById('license-key-input');
+  const activateBtn = document.getElementById('activate-license');
+  const deactivateBtn = document.getElementById('deactivate-license');
+  const feedback = document.getElementById('license-feedback');
+  const banner = document.getElementById('pro-active-banner');
+  const form = document.getElementById('license-key-form');
+
+  function setProActive(email) {
+    banner.style.display = 'block';
+    document.getElementById('pro-email').textContent = email || '';
+    input.style.display = 'none';
+    activateBtn.style.display = 'none';
+    deactivateBtn.style.display = 'inline-flex';
+    document.getElementById('pro-badge').style.display = 'block';
+  }
+
+  function setProInactive() {
+    banner.style.display = 'none';
+    input.style.display = 'block';
+    activateBtn.style.display = 'inline-flex';
+    deactivateBtn.style.display = 'none';
+    document.getElementById('pro-badge').style.display = 'none';
+  }
+
+  if (isPro && currentKey) {
+    ToneShiftStorage.get(['proEmail']).then(r => setProActive(r.proEmail || ''));
+  } else {
+    setProInactive();
+  }
+
+  activateBtn.addEventListener('click', async () => {
+    const key = input.value.trim();
+    if (!key) {
+      showFeedback(feedback, 'Please enter a license key.', 'error');
+      return;
+    }
+
+    activateBtn.textContent = 'Validating...';
+    activateBtn.disabled = true;
+
+    const result = await LemonSqueezy.validateLicenseKey(key);
+
+    activateBtn.textContent = 'Activate';
+    activateBtn.disabled = false;
+
+    if (!result.valid) {
+      showFeedback(feedback, `❌ ${result.error}`, 'error');
+      return;
+    }
+
+    await ToneShiftStorage.saveLicenseKey(key);
+    await ToneShiftStorage.set({ isPro: true, proEmail: result.customerEmail });
+
+    input.value = '';
+    setProActive(result.customerEmail);
+    showFeedback(feedback, `✓ ${result.productName} activated!`, 'success');
+  });
+
+  deactivateBtn.addEventListener('click', async () => {
+    if (!confirm('Deactivate Pro? You can re-enter your license key at any time.')) return;
+    await ToneShiftStorage.saveLicenseKey('');
+    await ToneShiftStorage.set({ isPro: false, proEmail: '' });
+    setProInactive();
+    showFeedback(feedback, 'Pro deactivated.', 'success');
+  });
 }
 
 // APIキーセクション
