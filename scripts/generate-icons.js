@@ -78,7 +78,7 @@ async function run() {
 
   for (const size of sizes) {
     const page = await browser.newPage();
-    await page.setViewport({ width: size, height: size, deviceScaleFactor: 2 });
+    await page.setViewport({ width: size, height: size, deviceScaleFactor: 1 });
 
     const svg = svgIcon(size);
     const html = `<!DOCTYPE html>
