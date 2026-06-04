@@ -2,7 +2,7 @@
 const LemonSqueezy = (() => {
   // LS で ToneShift Pro 商品を作成後に設定する
   // CLAUDE.md の「Lemon Squeezy アカウント情報」を参照
-  const LS_PRODUCT_ID = null; // 例: 1073999 （LS管理画面で確認）
+  const LS_PRODUCT_ID = 1115785;
   const VALIDATE_URL = 'https://api.lemonsqueezy.com/v1/licenses/validate';
 
   async function validateLicenseKey(licenseKey) {

@@ -83,7 +83,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.type === 'OPEN_PAYMENT') {
     // Lemon Squeezy のチェックアウトページを開く
     chrome.tabs.create({
-      url: 'https://saitoomasaki.lemonsqueezy.com/checkout/buy/TONSHIFT_VARIANT_ID'
+      url: 'https://saitoomasaki.lemonsqueezy.com/checkout/buy/2f6974e6-42dc-4e21-905e-8769258a55b7'
     });
     sendResponse({ success: true });
   }

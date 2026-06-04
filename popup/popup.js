@@ -67,7 +67,7 @@ async function init() {
     upgradeBtn.addEventListener('click', () => {
       // Lemon Squeezy 商品登録後に TONSHIFT_VARIANT_ID を実際のVariant IDに置き換える
       chrome.tabs.create({
-        url: 'https://saitoomasaki.lemonsqueezy.com/checkout/buy/TONSHIFT_VARIANT_ID'
+        url: 'https://saitoomasaki.lemonsqueezy.com/checkout/buy/2f6974e6-42dc-4e21-905e-8769258a55b7'
       });
     });
   }
