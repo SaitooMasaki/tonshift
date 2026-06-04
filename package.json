@@ -5,7 +5,8 @@
   "main": "background.js",
   "scripts": {
     "test": "node tests/e2e.js",
-    "build": "node scripts/build-zip.js"
+    "build": "node scripts/build-zip.js",
+    "screenshots": "node scripts/generate-screenshots.js"
   },
   "keywords": [],
   "author": "",
